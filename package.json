@@ -1,6 +1,6 @@
 {
   "name": "frc-scouting-app",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "data collection app for robots competing at FRC Events",
   "main": "index.js",
   "scripts": {
