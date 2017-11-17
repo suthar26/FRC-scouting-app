@@ -1,0 +1,19 @@
+{
+  "name": "frc-scouting-app",
+  "version": "1.0.0",
+  "description": "data collection app for robots competing at FRC Events",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suthar26/FRC-scouting-app.git"
+  },
+  "author": "Parth Suthar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suthar26/FRC-scouting-app/issues"
+  },
+  "homepage": "https://github.com/suthar26/FRC-scouting-app#readme"
+}
