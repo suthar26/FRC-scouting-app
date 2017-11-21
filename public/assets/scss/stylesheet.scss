@@ -1,0 +1,432 @@
+$primary: #B71C1C;
+$accent: #F44336;
+$background: #fff;
+$text-on-primary: white;
+$blog-color: #e7e7e7;
+
+$padding-b: 25px;
+$padding-m: 15px;
+$padding-s: 5px;
+
+$margin-b: 25px;
+$margin-m: 15px;
+$margin-s: 5px;
+
+$navbar-height: 30px;
+$page-width: 900px;
+
+$blog-width: $page-width - 50px;
+
+$grid-columns: 4;
+$grid-button-size: ($page-width - $margin-b * ($grid-columns - 1))/$grid-columns;
+
+$navbar-pic-height: 250px;
+
+@import "node_modules/material-components-web/dist/material-components-web";
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px|Voces');
+
+:root {
+  --mdc-theme-primary: $primary;
+  --mdc-theme-accent: $accent;
+  --mdc-theme-background: $background;
+  --mdc-theme-text-primary-on-primary: $text-on-primary;
+  --mdc-theme-text-secondary-on-primary: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-accent: white;
+  --mdc-theme-text-secondary-on-accent: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-dark: white;
+  --mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+}
+
+body{
+  font-family: 'Slabo 27px', sans-serif;
+}
+
+h1{
+  font-family: 'Voces', sans-serif;
+}
+
+h2{
+  font-family: 'Voces', sans-serif;
+}
+
+h3{
+  font-family: 'Voces', sans-serif;
+}
+
+h4{
+  font-family: 'Voces', sans-serif;
+}
+
+h5{
+  font-family: 'Voces', sans-serif;
+}
+
+a{
+  color: $accent;
+}
+.navbar-pic{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $navbar-pic-height;
+}
+.navbar-container{
+  background-color: $primary;
+  position: absolute;
+  //position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  // .navbar-container-fixed & {
+  //   position: fixed;
+  //   top: 0;
+  // }
+}
+
+.navbar{
+  background-color: $primary;
+  padding: 0;
+  display: flex;
+  width: $page-width;
+  height: $navbar-height;
+  background: $background;
+  margin: auto;
+  align-items: center;
+}
+
+.navbar-item{
+  background: $primary;
+  font-family: 'Voces', serif;
+  flex: 1;
+  height: 100%;
+  transition-duration: 0.5s;
+}
+
+.navbar-item:hover{
+  background-color: $accent;
+}
+
+.page{
+  width: $page-width;
+  margin: auto;
+  background: $background;
+}
+
+.blog{
+  width: $blog-width;
+  background: $blog-color;
+}
+
+.footer{
+  display: flex;
+  color: $text-on-primary;
+  background: $primary;
+}
+
+.footer-links{
+  width: 100%;
+}
+
+.footer-link{
+  width: 20%;
+  float: left;
+  margin: auto;
+  color: $text-on-primary;
+  text-decoration: none;
+}
+.footer-link:hover{
+  text-decoration: underline;
+}
+
+.footer-image{
+  float: right;
+  width: $page-width * .05;
+  height: $page-width * .05;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+//~~~~~~~~INDEX.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.feature-pic{
+  height: 300px;
+  width: $page-width;
+  background-position: center;
+}
+
+.feature-text{
+  color: $text-on-primary;
+  //background: $primary; /* For browsers that do not support gradients */
+  // background: -webkit-linear-gradient(rgba(255, 255, 255, 0.25), $primary); /* For Safari 5.1 to 6.0 */
+  // background: -o-linear-gradient(rgba(255, 255, 255, 0.25), $primary); /* For Opera 11.1 to 12.0 */
+  // background: -moz-linear-gradient(rgba(255, 255, 255, 0.25), $primary); /* For Firefox 3.6 to 15 */
+  // background: linear-gradient(rgba(0, 0, 0, 0.25), $primary); /* Standard syntax */
+}
+
+.grid-container{
+  width: $page-width;
+  display: block;
+  justify-content: center;
+}
+.grid-m{
+  margin-left: $margin-b;
+}
+.grid-button{
+  float: left;
+  position: relative;
+  background-position: center;
+  width: $grid-button-size;
+  height: $grid-button-size;
+  background: #fff;
+}
+.grid-button-foreground{
+  opacity: 0;
+  background: #333;
+  color: $text-on-primary;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  line-height: $grid-button-size;
+  padding-left: $padding-b;
+  padding-right: $padding-b;
+  text-align: center;
+  overflow: hidden;
+  transition-duration: 0.5s;
+}
+.grid-button-foreground:hover{
+  opacity: 0.5;
+}
+
+//~~~~~~~~~~~ROBOT.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$robot-button-size: 30px;
+
+.robot{
+  position: relative;
+  width: 100%;
+}
+
+.robot-pic{
+  float: left;
+  margin: $margin-m;
+  width: $page-width * 0.55;
+  height: $page-width * 0.5;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+}
+
+.robot-info{
+  float: left;
+  width: $page-width * 0.25;
+}
+
+.robot-button{
+  width: $robot-button-size;
+  height: $robot-button-size;
+  border-radius: $robot-button-size/2;
+  background: $primary;
+}
+//~~~~~~~~SPONSORS.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.sponsor-img{
+  width: $page-width/3;
+  height: $page-width/3;
+  //padding: $padding-m;
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  float: left;
+  transition-duration: .5s;
+}
+
+//~~~~~~~~HELPER CLASSES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.primary{
+  color: $primary;
+}
+
+.primary-bg{
+  background: $primary;
+}
+
+.accent{
+  color: $accent;
+}
+
+.accent-bg{
+  background: $accent;
+}
+.grey{
+  color: #333;
+}
+.grey-bg{
+  background: #333;
+}
+.text-on-primary{
+  color: $text-on-primary;
+}
+
+.padding-b{
+  padding: $padding-b;
+}
+.padding-m{
+  padding: $padding-m;
+}
+.padding-s{
+  padding: $padding-s;
+}
+
+.margin-b{
+  margin: $margin-b;
+}
+.margin-m{
+  margin: $margin-m;
+}
+.margin-s{
+  margin: $margin-s;
+}
+
+.margin-v-b{
+  margin: $margin-b auto;
+}
+.margin-v-m{
+  margin: $margin-m auto;
+}
+.margin-v-s{
+  margin: $margin-s auto;
+}
+
+.no-decor{
+  text-decoration: none;
+}
+
+.fill{
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.fill-w{
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.fill-v{
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto auto;
+}
+
+.center-text{
+  text-align: center;
+  line-height: 1;
+}
+
+.center-items{
+  align-items: center;
+}
+.circle{
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.opacity-half-hover{
+  opacity: 0;
+  transition-duration: 1s;
+}
+
+.opacity-half-hover:hover{
+  opacity: 0.5;
+}
+
+.opacity-hover{
+  opacity: 0;
+  transition-duration: 1s;
+}
+
+.opacity-hover:hover{
+  opacity: 1;
+}
+
+.none{
+  margin: 0;
+  border: none;
+  padding: 0;
+  outline:none;
+}
+
+.none-m{
+  margin: 0;
+}
+
+.f-left{
+  float: left;
+}
+.f-right{
+  float: right;
+}
+.top{
+  top: 0;
+}
+.bottom{
+  bottom: 0;
+}
+.left{
+  left: 0;
+}
+.right{
+  right: 0;
+}
+.clear{
+  clear: both;
+}
+.relative{
+  position: relative;
+}
+.absolute{
+  position: absolute;
+}
+.show-border{
+  border-color: #000;
+  border-width: medium;
+  border-style: dashed;
+}

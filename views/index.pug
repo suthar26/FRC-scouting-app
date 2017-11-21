@@ -1,0 +1,87 @@
+doctype html
+html
+    head
+        title Match Schedule
+        link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+        link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+        script(src='/javascripts/jquery-3.0.0.min.js')
+
+    body.none.fill
+        //(style='background-image: url(assets/pictures/circuit.png);')#body
+        div.f-left(style='width:5%;')
+            p.grid-width=('')
+            //=('#' + matchNumber)
+            //each team, teamNumber in summary
+              if (team.color == '#ba3248')
+                .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
+            //each team, teamNumber in summary
+              if (team.color == '#4286f4')
+                .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
+        div.f-left(style='width: 90%')
+            div
+                each title, i in ['Match', 'Red 1','Red 2','Red 3','Blue 1','Blue 2','Blue 3']
+                    if (i <= 0)
+                        p.grid-width.f-left.center(style='background: #ddd')=title
+                    if (i > 0 && i < 4)
+                        p.grid-width.f-left.center(style='background: #FF5252')=title
+                    if (i >= 4)
+                        p.grid-width.f-left.center(style='background: #448AFF')=title
+
+                .clear
+                each match, index in schedule
+                    .no-decor.grid-height
+                        each val, field in match
+                            if (field === 'matchNumber')
+                                a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/pitStrat?matchNumber=' + val)=val+''
+                            if (field ==='red1' || field ==='red2' || field === 'red3')
+                                a.no-decor.f-left.center.grid-item.red(href='/scouting/viewTeam?teamNumber=' + val)=val+''
+                            if (field === 'blue1' || field ==='blue2' || field === 'blue3')
+                                a.no-decor.f-left.center.grid-item.blue(href='/scouting/viewTeam?teamNumber=' + val)=val + ''
+
+                .clear
+
+                .clear
+
+        .clear
+
+        style(type='text/css').
+            .matchNum{
+                color: black;
+            }
+            .red{
+                background: #FF5252;
+                color: white;
+            }
+            .blue{
+                background: #448aff;
+                color: white;
+            }
+            .grid-width{
+                width: 13%;
+            }
+            .grid-height{
+                height: 40px;
+            }
+            .grid-item{
+                width: 13%;
+                height: 40px;
+            }
+            a{
+                background-color: #dddddd;
+                border: black;
+                height: 100px;
+                width: 150px;
+                padding: 3px;
+                display: inline;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            p {
+                width:150px;
+                padding:3px;
+                font-size: 16px;
+            }
+
+script(src='scripts/material-components-web.js')
+        script.
+            mdc.autoInit()
