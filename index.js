@@ -40,6 +40,16 @@ app.get('/scouting/teamSchedule', function(req, res){
     }
 });
 
+app.get('/scouting/redOpponents', function(req, res){
+
+//  res.render('scouting');
+    if(req.query.teamNumber != undefined){
+        postgres.getOpponentsWhenRed(req.query.teamNumber, res);
+    }else{
+        res.send('missing query: teamNumber');
+    }
+});
+
 app.get('/scouting', function(req, res){
 
 //  res.render('scouting');
