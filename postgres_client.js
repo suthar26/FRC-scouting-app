@@ -303,7 +303,7 @@ function sendWhenDone(doneQueries, summary, response, matchNumber){
         }
 
 
-        response.render('pitstrat', {'summary' : summary, 'matchNumber' : parseInt(matchNumber), 'red' : scores['red']['score'], 'blue' : scores['blue']['score']});
+        response.render('matchview', {'summary' : summary, 'matchNumber' : parseInt(matchNumber), 'red' : scores['red']['score'], 'blue' : scores['blue']['score']});
         console.log('sent pit data');
         return true;
     }
