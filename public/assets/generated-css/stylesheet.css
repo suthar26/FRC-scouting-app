@@ -11426,6 +11426,9 @@ a {
 .f-right {
   float: right; }
 
+.f-center {
+  text-align: center; }
+
 .top {
   top: 0; }
 

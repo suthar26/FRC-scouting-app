@@ -56,7 +56,10 @@ function sendMatchup(matchSchedule, response, schedule) {
         schedule[i]['blue3'] = row['b3'];
     }
     console.log('got schedule');
-    response.render('index',{'schedule' : schedule});
+    response.render('index',{
+      'schedule' : schedule,
+      'title' : 'Interesting Matches'
+    });
     console.log('sent schedule');
     return true;
 }
@@ -297,7 +300,7 @@ function sendWhenDone(doneQueries, summary, response, matchNumber){
         }
 
 
-        response.render('pitstrat', {'summary' : summary, 'matchNumber' : parseInt(matchNumber), 'red' : scores['red']['score'], 'blue' : scores['blue']['score']});
+        response.render('matchview', {'summary' : summary, 'matchNumber' : parseInt(matchNumber), 'red' : scores['red']['score'], 'blue' : scores['blue']['score']});
         console.log('sent pit data');
         return true;
     }
@@ -390,7 +393,7 @@ function sendSchedule(matchSchedule, response, schedule) {
         schedule[i]['blue3'] = row['b3'];
     }
     console.log('got schedule');
-    response.render('index',{'schedule' : schedule});
+    response.render('index',{'schedule' : schedule,'title':'Match Schedule'});
     console.log('sent schedule');
     return true;
 }
