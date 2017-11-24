@@ -139,7 +139,7 @@ function sendOpponentsWhenRed(matchSchedule, response, schedule, team) {
         var columns = ['Match', 'Blue 1', 'Blue 2', 'Blue 3'];
     }
     console.log('got schedule');
-    response.render('index',{
+    response.render('view',{
       'schedule' : schedule,
       'title' : "Opponents for team " + team + " when blue",
       'columns' : columns
