@@ -26,6 +26,10 @@ app.get('/', function(req, res) {//this block defines what our server will do wh
     postgres.getSchedule(res);
 });
 
+app.get('/elite', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getEliteMatchup(res);
+});
+
 app.get('/scouting', function(req, res){
 
 //  res.render('scouting');
