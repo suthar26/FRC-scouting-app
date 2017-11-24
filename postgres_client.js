@@ -108,6 +108,46 @@ function sendMatchesForTeam(matchSchedule, response, schedule, team) {
     return true;
 }
 
+exports.getOpponentsWhenRed = function(team, response){
+    console.log("Getting Matches for $1");
+    var teamNumber = [parseInt(team)];
+    var query = "SELECT M.match_number, M.b1, M.b2, M.b3 FROM \"matchSchedule\" M WHERE M.r1 = $1 OR M.r2 = $1 OR M.r3 = $1 ORDER BY M.match_number";
+    pool.query(query, teamNumber, function (err, res){
+      var schedule = {};
+      if (err){
+          console.log(err);
+          response.send(err);
+          return
+      }
+      if(sendOpponentsWhenRed(res, response, schedule, teamNumber)){
+          return
+      }
+    });
+}
+
+function sendOpponentsWhenRed(matchSchedule, response, schedule, team) {
+    for (i in matchSchedule.rows){
+        row = matchSchedule.rows[i];
+        if(!schedule[i]){
+            schedule[i] = {}
+        }
+        schedule[i]['matchNumber'] = row['match_number'];
+        schedule[i]['blue1'] = row['b1'];
+        schedule[i]['blue2'] = row['b2'];
+        schedule[i]['blue3'] = row['b3'];
+
+        var columns = ['Match', 'Blue 1', 'Blue 2', 'Blue 3'];
+    }
+    console.log('got schedule');
+    response.render('view',{
+      'schedule' : schedule,
+      'title' : "Opponents for team " + team + " when blue",
+      'columns' : columns
+    });
+    console.log('sent schedule');
+    return true;
+}
+
 exports.getMatch = function(matchNumber, station, response){
     console.log("Getting Match: " + matchNumber + " for station: " + station);
     var values = [parseInt(matchNumber)];
