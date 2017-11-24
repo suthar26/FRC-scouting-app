@@ -67,15 +67,16 @@ function sendMatchup(matchSchedule, response, schedule) {
 
 exports.getMatchesForTeam = function(team, response){
     console.log("Getting Matches for $1");
+    var teamNumber = [parseInt(team)];
     var query = "SELECT M.match_number, M.r1, M.r2, M.r3, M.b1, M.b2, M.b3 FROM \"matchSchedule\" M WHERE M.r1 = $1 OR M.r2 = $1 OR M.r3 = $1 OR M.b1 = $1 OR M.b2 = $1 OR M.b3 = $1 ORDER BY M.match_number";
-    pool.query(query, function (err, res){
+    pool.query(query, teamNumber, function (err, res){
       var schedule = {};
       if (err){
           console.log(err);
           response.send(err);
           return
       }
-      if(sendMatchup(res, response, schedule, team)){
+      if(sendMatchesForTeam(res, response, schedule, teamNumber)){
           return
       }
     });
@@ -95,12 +96,12 @@ function sendMatchesForTeam(matchSchedule, response, schedule, team) {
         schedule[i]['blue2'] = row['b2'];
         schedule[i]['blue3'] = row['b3'];
 
-        var columns = ['matchNumber','red1', 'red2', 'red3', 'blue1', 'blue2', 'blue3'];
+        var columns = ['Match','Red 1', 'Red 2', 'Red 3', 'Blue 1', 'Blue 2', 'Blue 3'];
     }
     console.log('got schedule');
     response.render('index',{
       'schedule' : schedule,
-      'title' : 'Matches for $4',
+      'title' : "Matches for team " + team,
       'columns' : columns
     });
     console.log('sent schedule');
