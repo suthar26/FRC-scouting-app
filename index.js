@@ -30,6 +30,16 @@ app.get('/scouting/elite', function(req, res) {//this block defines what our ser
     postgres.getEliteMatchup(res);
 });
 
+app.get('/scouting/teamSchedule', function(req, res){
+
+//  res.render('scouting');
+    if(req.query.teamNumber != undefined){
+        postgres.getMatchesForTeam(req.query.teamNumber, res);
+    }else{
+        res.send('missing query: teamNumber');
+    }
+});
+
 app.get('/scouting', function(req, res){
 
 //  res.render('scouting');
