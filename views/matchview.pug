@@ -8,7 +8,8 @@ html
 
   body.none.fill
     //(style='background-image: url(assets/pictures/circuit.png);')#body
-
+    div.f-center(style='width:100%')
+        h1=title
 
     div.f-left(style='width:10%;')
       p.grid-width=('#' + matchNumber)
@@ -22,7 +23,7 @@ html
 
     div.f-left(style='width: 90%')
       div
-        each title, i in ['Station', 'mPlayed', 'aGear', 'aSide', 'aGearP','aBallP','aHigh','tGear','tGearP', 'hangSucc','hangDur']
+        each title, i in columns
           if (i <= 1)
             p.grid-width.f-left(style='background: orange')=title
           if (i > 1 && i < 7)
