@@ -56,7 +56,10 @@ function sendMatchup(matchSchedule, response, schedule) {
         schedule[i]['blue3'] = row['b3'];
     }
     console.log('got schedule');
-    response.render('index',{'schedule' : schedule});
+    response.render('index',{
+      'schedule' : schedule,
+      'title' : 'Interesting Matches'
+    });
     console.log('sent schedule');
     return true;
 }
@@ -390,7 +393,7 @@ function sendSchedule(matchSchedule, response, schedule) {
         schedule[i]['blue3'] = row['b3'];
     }
     console.log('got schedule');
-    response.render('index',{'schedule' : schedule});
+    response.render('index',{'schedule' : schedule,'title':'Match Schedule'});
     console.log('sent schedule');
     return true;
 }
