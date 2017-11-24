@@ -58,7 +58,8 @@ function sendMatchup(matchSchedule, response, schedule) {
     console.log('got schedule');
     response.render('index',{
       'schedule' : schedule,
-      'title' : 'Interesting Matches'
+      'title' : 'Interesting Matches',
+      'columns': ['Match', 'Red 1','Red 2','Red 3','Blue 1','Blue 2','Blue 3']
     });
     console.log('sent schedule');
     return true;
@@ -300,7 +301,7 @@ function sendWhenDone(doneQueries, summary, response, matchNumber){
         }
 
 
-        response.render('matchview', {'summary' : summary, 'matchNumber' : parseInt(matchNumber), 'red' : scores['red']['score'], 'blue' : scores['blue']['score']});
+        response.render('matchview', {'summary' : summary, 'title': 'Match View','matchNumber' : parseInt(matchNumber),'columns' : ['Station', 'mPlayed', 'aGear', 'aSide', 'aGearP','aBallP','aHigh','tGear','tGearP', 'hangSucc','hangDur']});
         console.log('sent pit data');
         return true;
     }
@@ -368,7 +369,7 @@ function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber
     console.log(doneQueries[0] + ': ' + doneQueries[1]);
     if(doneQueries[0] && doneQueries[1]){
         console.log(summary);
-        response.render('teamview', {'summary' : summary, 'teamNumber' : teamNumber});
+        response.render('teamview', {'summary' : summary,'title':'Team View', 'teamNumber' : teamNumber,'columns' :['matchNumber', 'Mobility','aGear','aGearP','aBallP','aHigh','tGear','tGearP','tHigh','hangSucc','hangDur']});
         console.log('sent data for team');
         return true;
     }
@@ -393,7 +394,7 @@ function sendSchedule(matchSchedule, response, schedule) {
         schedule[i]['blue3'] = row['b3'];
     }
     console.log('got schedule');
-    response.render('index',{'schedule' : schedule,'title':'Match Schedule'});
+    response.render('index',{'schedule' : schedule,'title':'Match Schedule','columns': ['Match', 'Red 1','Red 2','Red 3','Blue 1','Blue 2','Blue 3']});
     console.log('sent schedule');
     return true;
 }

@@ -21,7 +21,7 @@ html
                 .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
         div.f-left(style='width: 90%')
             div
-                each title, i in ['Match', 'Red 1','Red 2','Red 3','Blue 1','Blue 2','Blue 3']
+                each title, i in columns
                     if (i <= 0)
                         p.grid-width.f-left.center(style='background: #ddd')=title
                     if (i > 0 && i < 4)
