@@ -25,6 +25,47 @@ pool.on('error', function (err, client) {
 });
 
 
+exports.getTeams = function(response){
+    console.log("Getting all teams");
+
+    var query = "SELECT DISTINCT a.team_number as Team FROM \"autoData\" a ORDER BY a.team_number";
+    pool.query(query, function (err, res) {
+        var team = {};
+        if (err){
+            console.log(err);
+            response.send(err);
+            return
+        }
+
+        if(sendTeams(res, team, response)){
+            return
+        }
+
+    });
+};
+
+function sendTeams(teams, team, response) {
+    for (i in teams.rows){
+        row = teams.rows[i];
+        if(!team[i]){
+            team[i] = {}
+        }
+        team[i] = row['team'];
+    }
+
+    var columns = ['Team Number'];
+
+    console.log('got teams');
+    console.log(team);
+    response.send({
+      'schedule' : team,
+      'title' : "Teams",
+      'columns' : columns
+    });
+    console.log('sent teams');
+    return true;
+}
+
 exports.getEliteMatchup = function(response){
     console.log("Getting Elite Matchups");
     var query = "SELECT M.match_number, M.r1, M.r2, M.r3, M.b1, M.b2, M.b3 FROM \"matchSchedule\" M WHERE (M.r1 = ANY (SELECT T.team_number FROM \"teleData\" T WHERE T.gears_scored > 1 AND T.tele_high > 5 GROUP BY T.team_number) OR M.r2 = ANY (SELECT T.team_number FROM \"teleData\" T WHERE T.gears_scored > 1 AND T.tele_high > 5 GROUP BY T.team_number)	OR M.r3 = ANY (SELECT T.team_number FROM \"teleData\" T WHERE T.gears_scored > 1 AND T.tele_high > 5 GROUP BY T.team_number))	AND (M.b1 = ANY (SELECT T.team_number FROM \"teleData\" T WHERE T.gears_scored > 1 AND T.tele_high > 5 GROUP BY T.team_number) OR M.b2 = ANY (SELECT T.team_number FROM \"teleData\" T WHERE T.gears_scored > 1 AND T.tele_high > 5 GROUP BY T.team_number)	OR M.b3 = ANY (SELECT T.team_number FROM \"teleData\" T WHERE T.gears_scored > 1 AND T.tele_high > 5 GROUP BY T.team_number)) ORDER BY M.match_number";

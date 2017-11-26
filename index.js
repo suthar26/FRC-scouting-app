@@ -30,6 +30,10 @@ app.get('/scouting/matchSchedule', function(req, res) {//this block defines what
     postgres.getSchedule(res);
 });
 
+app.get('/scouting/teams', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getTeams(res);
+});
+
 app.get('/scouting/elite', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
     postgres.getEliteMatchup(res);
 });
