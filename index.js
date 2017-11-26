@@ -30,6 +30,26 @@ app.get('/scouting/elite', function(req, res) {//this block defines what our ser
     postgres.getEliteMatchup(res);
 });
 
+app.get('/scouting/sideHangers', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getSideHang(res);
+});
+
+app.get('/scouting/shooters', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getShoot(res);
+});
+
+app.get('/scouting/HangOrAutoGear', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getHangOrAutoGear(res);
+});
+
+app.get('/scouting/hangRank', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getHangRank(res);
+});
+
+app.get('/scouting/eliteRank', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getEliteBot(res);
+});
+
 app.get('/scouting/teamSchedule', function(req, res){
 
 //  res.render('scouting');
