@@ -60,7 +60,7 @@ app.get('/scouting/teamSchedule', function(req, res){
     }
 });
 
-app.get('/scouting/redOpponents', function(req, res){
+app.get('/scouting/opponents', function(req, res){
 
 //  res.render('scouting');
     if(req.query.teamNumber != undefined){
@@ -70,7 +70,7 @@ app.get('/scouting/redOpponents', function(req, res){
     }
 });
 
-app.get('/scouting/blueOpponents', function(req, res){
+app.get('/scouting/opponents', function(req, res){
 
 //  res.render('scouting');
     if(req.query.teamNumber != undefined){
