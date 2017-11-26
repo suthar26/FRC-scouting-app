@@ -23,7 +23,9 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
-    postgres.getSchedule(res);
+    res.render('index',{
+      'title' : 'FRC Scouting App'
+    })
 });
 
 app.get('/scouting/matchSchedule', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/

@@ -19,7 +19,8 @@ html
             a(href='/scouting/MatchSchedule') Match Schedule
             a(href='/scouting/hangRank') Ranking
             a(href='/scouting/opponents?teamNumber=188') Opponents of 188
-
+        
+        div.spacing
         div.f-center(style='width:100%')
             h1=title
         //(style='background-image: url(assets/pictures/circuit.png);')#body
@@ -34,27 +35,6 @@ html
                 .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
         div.f-left(style='width: 90%')
             div
-                each title, i in columns
-                    if (i <= 0)
-                        p.grid-width.f-left.center(style='background: #ddd')=title
-                    if (i > 0 && i < 4)
-                        p.grid-width.f-left.center(style='background: #FF5252')=title
-                    if (i >= 4)
-                        p.grid-width.f-left.center(style='background: #448AFF')=title
-
-                .clear
-                each match, index in schedule
-                    .no-decor.grid-height
-                        each val, field in match
-                            if (field === 'matchNumber')
-                                a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/pitStrat?matchNumber=' + val)=val+''
-                            if (field ==='red1' || field ==='red2' || field === 'red3')
-                                a.no-decor.f-left.center.grid-item.red(href='/scouting/viewTeam?teamNumber=' + val)=val+''
-                            if (field === 'blue1' || field ==='blue2' || field === 'blue3')
-                                a.no-decor.f-left.center.grid-item.blue(href='/scouting/viewTeam?teamNumber=' + val)=val + ''
-
-                .clear
-
                 .clear
 
         .clear
@@ -62,6 +42,11 @@ html
         style(type='text/css').
             .matchNum{
                 color: black;
+            }
+            .spacing {
+                padding: 16px;
+                margin-top: 175px;
+                width:100%;
             }
             .topnav {
               overflow: hidden;
@@ -87,7 +72,7 @@ html
             }
             .topnav a.active {
               background-color: #FF5252;
-              color: black:
+              color: black;
             }
             .red{
                 background: #FF5252;
@@ -122,10 +107,7 @@ html
                 padding:3px;
                 font-size: 16px;
             }
-            h1 {
-                padding: 16px;
-                margin-top: 175px;
-            }
+            
             heading{
               padding: 0px;
               margin-top: 0px;

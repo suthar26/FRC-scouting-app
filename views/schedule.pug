@@ -8,6 +8,18 @@ html
 
     body.none.fill
         div.f-center(style='width:100%')
+          .topnav
+            div.f-center.heading(style='width:100%')
+              h2 FRC Scouting
+            div.f-left(style='width:5%;')
+              p.grid-width=('')
+            a(href='/') Home
+            a.active(href='/scouting/MatchSchedule') Match Schedule
+            a(href='/scouting/hangRank') Ranking
+            a(href='/scouting/opponents?teamNumber=188') Opponents of 188
+        div.spacing
+          
+        div.f-center(style='width:100%')
             h1=title
         //(style='background-image: url(assets/pictures/circuit.png);')#body
         div.f-left(style='width:5%;')
@@ -40,6 +52,32 @@ html
         .clear
 
         style(type='text/css').
+            .topnav {
+              overflow: hidden;
+              background-color: #FFF;
+              position: fixed;
+              top: 0;
+              width: 100%;
+            }
+            .topnav a {
+              float: left;
+              display: block;
+              color: #333;
+              text-align: center;
+              padding-top: 10px;
+              height: 50px;
+              text-decoration: none;
+              font-size: 25px;
+              width:22%;
+            }
+            .topnav a:hover {
+              background-color: #ddd;
+              color: black;
+            }
+            .topnav a.active {
+              background-color: #FF5252;
+              color: black;
+            }
             .matchNum{
                 color: black;
             }
@@ -60,6 +98,11 @@ html
             .grid-item{
                 width: 13%;
                 height: 40px;
+            }
+            .spacing{
+                padding: 16px;
+                margin-top: 175px;
+                width:100%;
             }
             a{
                 background-color: #dddddd;
