@@ -1,0 +1,97 @@
+doctype html
+html
+    head
+        title=Opponents
+        link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+        link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+        script(src='/javascripts/jquery-3.0.0.min.js')
+
+    body.none.fill
+        div.f-center(style='width:100%')
+            h1=red.title
+        div.f-left(style='width:5%;')
+            p.grid-width=('')
+        div.f-left(style='width: 90%')
+            div
+                each title, i in red.columns
+                    if (i <= 0)
+                        p.grid-width.f-left.center(style='background: #ddd')=title
+                    if (i > 0)
+                        p.grid-width.f-left.center(style='background: #2962FF')=title
+                    
+                .clear
+                each match, index in red.schedule
+                    .no-decor.grid-height
+                        each val, field in match
+                            if (field === 'matchNumber')
+                                a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/pitStrat?matchNumber=' + val)=val+''
+                            if (field != 'matchNumber')
+                                p.grid-item.f-left.center(style='background: #2196F3')=val+' '
+                .clear
+
+        .clear
+        div.f-center(style='width:100%')
+            h1=blue.title
+        div.f-left(style='width:5%;')
+            p.grid-width=('')
+        div.f-left(style='width: 90%')
+            div
+                each title, i in blue.columns
+                    if (i <= 0)
+                        p.grid-width.f-left.center(style='background: #ddd')=title
+                    if (i > 0)
+                        p.grid-width.f-left.center(style='background: #B71C1C')=title
+                    
+                .clear
+                each match, index in blue.schedule
+                    .no-decor.grid-height
+                        each val, field in match
+                            if (field === 'matchNumber')
+                                a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/pitStrat?matchNumber=' + val)=val+''
+                            if (field != 'matchNumber')
+                                p.grid-item.f-left.center(style='background: #F44336')=val+' '
+                .clear
+
+        .clear
+
+        style(type='text/css').
+            .matchNum{
+                color: black;
+            }
+            .red{
+                background: #FF5252;
+                color: white;
+            }
+            .blue{
+                background: #448aff;
+                color: white;
+            }
+            .grid-width{
+                width: 22%;
+            }
+            .grid-height{
+                height: 40px;
+            }
+            .grid-item{
+                width: 22%;
+                height: 40px;
+            }
+            a{
+                background-color: #dddddd;
+                border: black;
+                height: 100px;
+                width: 150px;
+                padding: 3px;
+                display: inline;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            p {
+                width:150px;
+                padding:3px;
+                font-size: 16px;
+            }
+
+script(src='scripts/material-components-web.js')
+        script.
+            mdc.autoInit()

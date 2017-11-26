@@ -65,6 +65,349 @@ function sendMatchup(matchSchedule, response, schedule) {
     return true;
 }
 
+exports.getMatchesForTeam = function(team, response){
+    console.log("Getting Matches for $1");
+    var teamNumber = [parseInt(team)];
+    var query = "SELECT M.match_number, M.r1, M.r2, M.r3, M.b1, M.b2, M.b3 FROM \"matchSchedule\" M WHERE M.r1 = $1 OR M.r2 = $1 OR M.r3 = $1 OR M.b1 = $1 OR M.b2 = $1 OR M.b3 = $1 ORDER BY M.match_number";
+    pool.query(query, teamNumber, function (err, res){
+      var schedule = {};
+      if (err){
+          console.log(err);
+          response.send(err);
+          return
+      }
+      if(sendMatchesForTeam(res, response, schedule, teamNumber)){
+          return
+      }
+    });
+}
+
+function sendMatchesForTeam(matchSchedule, response, schedule, team) {
+    for (i in matchSchedule.rows){
+        row = matchSchedule.rows[i];
+        if(!schedule[i]){
+            schedule[i] = {}
+        }
+        schedule[i]['matchNumber'] = row['match_number'];
+        schedule[i]['red1'] = row['r1'];
+        schedule[i]['red2'] = row['r2'];
+        schedule[i]['red3'] = row['r3'];
+        schedule[i]['blue1'] = row['b1'];
+        schedule[i]['blue2'] = row['b2'];
+        schedule[i]['blue3'] = row['b3'];
+
+    }
+
+    var columns = ['Match','Red 1', 'Red 2', 'Red 3', 'Blue 1', 'Blue 2', 'Blue 3'];
+
+    console.log('got schedule');
+    response.render('index',{
+      'schedule' : schedule,
+      'title' : "Matches for team " + team,
+      'columns' : columns
+    });
+    console.log('sent schedule');
+    return true;
+}
+
+exports.getOpponentsWhenRed = function(team, response){
+    console.log("Getting Matches for $1");
+    var teamNumber = [parseInt(team)];
+    var query = "SELECT M.match_number, M.b1, M.b2, M.b3 FROM \"matchSchedule\" M WHERE M.r1 = $1 OR M.r2 = $1 OR M.r3 = $1 ORDER BY M.match_number";
+    pool.query(query, teamNumber, function (err, res){
+      var schedule = {};
+      if (err){
+          console.log(err);
+          response.send(err);
+          return
+      }
+      if(prepOpponentsWhenRed(res, response, schedule, teamNumber)){
+          return
+      }
+    });
+}
+
+function prepOpponentsWhenRed(matchSchedule, response, schedule, team) {
+    for (i in matchSchedule.rows){
+        row = matchSchedule.rows[i];
+        if(!schedule[i]){
+            schedule[i] = {}
+        }
+        schedule[i]['matchNumber'] = row['match_number'];
+        schedule[i]['blue1'] = row['b1'];
+        schedule[i]['blue2'] = row['b2'];
+        schedule[i]['blue3'] = row['b3'];
+
+    }
+
+    var columns = ['Match', 'Blue 1', 'Blue 2', 'Blue 3'];
+
+    console.log('got red schedule');
+    console.log(schedule);
+    var redmatches = {
+      'schedule' : schedule,
+      'title' : "Opponents for Team " + team + " when Red side",
+      'columns' : columns
+    };
+    getOpponentsWhenBlue(team, response, redmatches);
+    return true;
+}
+
+function getOpponentsWhenBlue (team, response,redmatches){
+    console.log("Getting Matches for $1");
+    var teamNumber = [parseInt(team)];
+    var query = "SELECT M.match_number, M.r1, M.r2, M.r3 FROM \"matchSchedule\" M WHERE M.b1 = $1 OR M.b2 = $1 OR M.b3 = $1 ORDER BY M.match_number";
+    pool.query(query, teamNumber, function (err, res){
+      var schedule = {};
+      if (err){
+          console.log(err);
+          response.send(err);
+          return
+      }
+      if(sendOpponentsWhenBlue(res, response, schedule, teamNumber,redmatches)){
+          return
+      }
+    });
+}
+
+function sendOpponentsWhenBlue(matchSchedule, response, schedule, team, redmatches) {
+    for (i in matchSchedule.rows){
+        row = matchSchedule.rows[i];
+        if(!schedule[i]){
+            schedule[i] = {}
+        }
+        schedule[i]['matchNumber'] = row['match_number'];
+        schedule[i]['red1'] = row['r1'];
+        schedule[i]['red2'] = row['r2'];
+        schedule[i]['red3'] = row['r3'];
+
+
+    }
+
+    var columns = ['Match', 'Red 1', 'Red 2', 'Red 3'];
+
+    console.log('got schedule');
+    var bluematches = {
+      'schedule' : schedule,
+      'title' : "Opponents for team " + team + " when Blue side",
+      'columns' : columns
+    };
+    response.render('opponents',{
+      'red' : redmatches,
+      'blue' : bluematches
+    });
+    console.log('sent schedule');
+    return true;
+}
+
+exports.getSideHang = function(response){
+    console.log("Getting bots that hang on odd");
+
+    var query = "SELECT DISTINCT a.team_number as Team FROM \"autoData\" a WHERE EXISTS (SELECT * FROM \"teleData\" t WHERE (a.auto_pref_lift='port1' OR a.auto_pref_lift='port3') AND t.hang_duration < 8) ORDER BY a.team_number";
+    pool.query(query, function (err, res) {
+        var team = {};
+        if (err){
+            console.log(err);
+            response.send(err);
+            return
+        }
+
+        if(sendSideHang(res, team, response)){
+            return
+        }
+
+    });
+};
+
+function sendSideHang(teams, team, response) {
+    for (i in teams.rows){
+        row = teams.rows[i];
+        if(!team[i]){
+            team[i] = {}
+        }
+        team[i] = row['team'];
+    }
+
+    var columns = ['Team Number'];
+
+    console.log('got teams');
+    console.log(team);
+    response.render('team',{
+      'schedule' : team,
+      'title' : "Side Hangers",
+      'columns' : columns
+    });
+    console.log('sent teams');
+    return true;
+}
+
+exports.getShoot = function(response){
+    console.log("Getting bots that shoot high");
+
+    var query = "SELECT DISTINCT A.team_number FROM \"autoData\" A FULL OUTER JOIN \"teleData\" T ON A.form_id = T.form_id WHERE A.auto_high > 0 OR T.tele_high > 0 ORDER BY A.team_number";
+    pool.query(query, function (err, res) {
+        var team = {};
+        if (err){
+            console.log(err);
+            response.send(err);
+            return
+        }
+
+        if(sendShoot(res, team, response)){
+            return
+        }
+
+    });
+};
+
+function sendShoot(teams, team, response) {
+    for (i in teams.rows){
+        row = teams.rows[i];
+        if(!team[i]){
+            team[i] = {}
+        }
+        team[i] = row['team_number'];
+    }
+
+    var columns = ['Team Number'];
+
+    console.log('got teams');
+    console.log(team);
+    response.render('team',{
+      'teams' : team,
+      'title' : "Teams that shoot high",
+      'columns' : columns
+    });
+    console.log('sent teams');
+    return true;
+}
+
+exports.getHangOrAutoGear = function(response){
+    console.log("Getting bots that hang or score a gear in auto");
+
+    var query = "SELECT a.team_number FROM \"autoData\" a WHERE a.auto_gear > 0 UNION SELECT t.team_number FROM \"teleData\" t where t.hang_duration < 5 ORDER BY team_number";
+    pool.query(query, function (err, res) {
+        var team = {};
+        if (err){
+            console.log(err);
+            response.send(err);
+            return
+        }
+
+        if(sendHangOrAutoGear(res, team, response)){
+            return
+        }
+
+    });
+};
+
+function sendHangOrAutoGear(teams, team, response) {
+    for (i in teams.rows){
+        row = teams.rows[i];
+        if(!team[i]){
+            team[i] = {}
+        }
+        team[i] = row['team_number'];
+    }
+
+    var columns = ['Team Number'];
+
+    console.log('got teams');
+    console.log(team);
+    response.render('team',{
+      'teams' : team,
+      'title' : "Teams that hang or do auto gear",
+      'columns' : columns
+    });
+    console.log('sent teams');
+    return true;
+}
+
+exports.getHangRank = function(response){
+    console.log("Getting bots ranked by hang");
+
+    var query = "SELECT T.team_number, AVG (T.hang_duration), COUNT(T.hang) FROM \"teleData\" T WHERE T.hang = true GROUP BY T.team_number ORDER BY AVG (T.hang_duration)";
+    pool.query(query, function (err, res) {
+        var team = {};
+        if (err){
+            console.log(err);
+            response.send(err);
+            return
+        }
+
+        if(sendHangRank(res, team, response)){
+            return
+        }
+
+    });
+};
+
+function sendHangRank(teams, team, response) {
+    for (i in teams.rows){
+        row = teams.rows[i];
+        if(!team[i]){
+            team[i] = {}
+        }
+        team[i]['team'] = row['team_number'];
+        team[i]['hangDur'] = row['avg'];
+        team[i]['hang'] = row['count'];
+    }
+
+    var columns = ['Team Number', 'Average Time', 'Hang Count'];
+
+    console.log('got teams');
+    console.log(team);
+    response.render('team',{
+      'teams' : team,
+      'title' : "Ranking of hangs",
+      'columns' : columns
+    });
+    console.log('sent teams');
+    return true;
+}
+
+exports.getEliteBot = function(response){
+    console.log("Getting elite bots");
+
+    var query = "SELECT T.team_number, round(AVG (T.gears_scored), 2) AS \"gears\", round (AVG (T.tele_high),2) AS \"high\" FROM \"teleData\" T WHERE T.gears_scored > 1 AND T.tele_high > 5 GROUP BY T.team_number ORDER BY AVG (T.gears_scored) DESC, AVG (T.tele_high) DESC";
+    pool.query(query, function (err, res) {
+        var team = {};
+        if (err){
+            console.log(err);
+            response.send(err);
+            return
+        }
+
+        if(sendEliteBot(res, team, response)){
+            return
+        }
+
+    });
+};
+
+function sendEliteBot(teams, team, response) {
+    for (i in teams.rows){
+        row = teams.rows[i];
+        if(!team[i]){
+            team[i] = {}
+        }
+        team[i]['team'] = row['team_number'];
+        team[i]['gears'] = row['gears'];
+        team[i]['teleHigh'] = row['high'];
+    }
+
+    var columns = ['Team', 'Gear Average', 'High Ball Average'];
+
+    console.log('got teams');
+    response.render('team',{
+      'teams' : team,
+      'title' : "Elite Bots ranked",
+      'columns' : columns
+    });
+    console.log('sent teams');
+    return true;
+}
+
 exports.getMatch = function(matchNumber, station, response){
     console.log("Getting Match: " + matchNumber + " for station: " + station);
     var values = [parseInt(matchNumber)];
