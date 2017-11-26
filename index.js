@@ -42,7 +42,7 @@ app.get('/scouting/shooters', function(req, res) {//this block defines what our 
     postgres.getShoot(res);
 });
 
-app.get('/scouting/HangOrAutoGear', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+app.get('/scouting/hangOrAutoGear', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
     postgres.getHangOrAutoGear(res);
 });
 

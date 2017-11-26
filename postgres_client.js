@@ -203,7 +203,7 @@ function sendOpponentsWhenBlue(matchSchedule, response, schedule, team, redmatch
 exports.getSideHang = function(response){
     console.log("Getting bots that hang on odd");
 
-    var query = "SELECT DISTINCT a.team_number as Team FROM \"autoData\" a WHERE EXISTS (SELECT * FROM \"teleData\" t WHERE (a.auto_pref_lift='port1' OR a.auto_pref_lift='port3') AND t.hang_duration < 8)";
+    var query = "SELECT DISTINCT a.team_number as Team FROM \"autoData\" a WHERE EXISTS (SELECT * FROM \"teleData\" t WHERE (a.auto_pref_lift='port1' OR a.auto_pref_lift='port3') AND t.hang_duration < 8) ORDER BY a.team_number";
     pool.query(query, function (err, res) {
         var team = {};
         if (err){
@@ -225,14 +225,14 @@ function sendSideHang(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i] = row['team_number'];
+        team[i] = row['team'];
     }
 
     var columns = ['Team Number'];
 
     console.log('got teams');
     console.log(team);
-    response.render('view',{
+    response.render('team',{
       'schedule' : team,
       'title' : "Side Hangers",
       'columns' : columns
@@ -244,7 +244,7 @@ function sendSideHang(teams, team, response) {
 exports.getShoot = function(response){
     console.log("Getting bots that shoot high");
 
-    var query = "SELECT DISTINCT A.team_number FROM \"autoData\" A FULL OUTER JOIN \"teleData\" T ON A.form_id = T.form_id WHERE A.auto_high > 0 OR T.tele_high > 0";
+    var query = "SELECT DISTINCT A.team_number FROM \"autoData\" A FULL OUTER JOIN \"teleData\" T ON A.form_id = T.form_id WHERE A.auto_high > 0 OR T.tele_high > 0 ORDER BY A.team_number";
     pool.query(query, function (err, res) {
         var team = {};
         if (err){
@@ -266,13 +266,13 @@ function sendShoot(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i] = row['team_number'];
+        team[i] = row['team'];
     }
 
     var columns = ['Team Number'];
 
     console.log('got teams');
-    response.render('view',{
+    response.render('team',{
       'teams' : team,
       'title' : "Teams that shoot high",
       'columns' : columns
@@ -284,7 +284,7 @@ function sendShoot(teams, team, response) {
 exports.getHangOrAutoGear = function(response){
     console.log("Getting bots that hang or score a gear in auto");
 
-    var query = "SELECT a.team_number as HangBot FROM \"autoData\" a WHERE AND a.auto_gear > 0 UNION SELECT t.team_number FROM \"teleData\" t where t.hang_duration < 5";
+    var query = "SELECT a.team_number as HangBot FROM \"autoData\" a WHERE AND a.auto_gear > 0 UNION SELECT t.team_number FROM \"teleData\" t where t.hang_duration < 5 ORDER BY a.team_number";
     pool.query(query, function (err, res) {
         var team = {};
         if (err){
@@ -306,13 +306,13 @@ function sendHangOrAutoGear(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i] = row['team_number'];
+        team[i] = row['team'];
     }
 
     var columns = ['Team Number'];
 
     console.log('got teams');
-    response.render('view',{
+    response.render('team',{
       'teams' : team,
       'title' : "Teams that hang or do auto gear",
       'columns' : columns
@@ -347,14 +347,15 @@ function sendHangRank(teams, team, response) {
             team[i] = {}
         }
         team[i]['team'] = row['team_number'];
-        team[i]['hangDur'] = row['hang_duration'];
-        team[i]['hang'] = row['hang'];
+        team[i]['hangDur'] = row['avg'];
+        team[i]['hang'] = row['count'];
     }
 
     var columns = ['Team Number', 'Average Time', 'Hang Count'];
 
     console.log('got teams');
-    response.render('view',{
+    console.log(team);
+    response.render('team',{
       'teams' : team,
       'title' : "Ranking of hangs",
       'columns' : columns
@@ -389,14 +390,14 @@ function sendEliteBot(teams, team, response) {
             team[i] = {}
         }
         team[i]['team'] = row['team_number'];
-        team[i]['gears'] = row['gears_scored'];
-        team[i]['teleHigh'] = row['tele_high'];
+        team[i]['gears'] = row['gears'];
+        team[i]['teleHigh'] = row['high'];
     }
 
     var columns = ['Team', 'Gear Average', 'High Ball Average'];
 
     console.log('got teams');
-    response.render('view',{
+    response.render('team',{
       'teams' : team,
       'title' : "Elite Bots ranked",
       'columns' : columns
