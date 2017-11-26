@@ -266,12 +266,13 @@ function sendShoot(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i] = row['team'];
+        team[i] = row['team_number'];
     }
 
     var columns = ['Team Number'];
 
     console.log('got teams');
+    console.log(team);
     response.render('team',{
       'teams' : team,
       'title' : "Teams that shoot high",
@@ -284,7 +285,7 @@ function sendShoot(teams, team, response) {
 exports.getHangOrAutoGear = function(response){
     console.log("Getting bots that hang or score a gear in auto");
 
-    var query = "SELECT a.team_number as HangBot FROM \"autoData\" a WHERE AND a.auto_gear > 0 UNION SELECT t.team_number FROM \"teleData\" t where t.hang_duration < 5 ORDER BY a.team_number";
+    var query = "SELECT a.team_number FROM \"autoData\" a WHERE a.auto_gear > 0 UNION SELECT t.team_number FROM \"teleData\" t where t.hang_duration < 5 ORDER BY team_number";
     pool.query(query, function (err, res) {
         var team = {};
         if (err){
@@ -306,12 +307,13 @@ function sendHangOrAutoGear(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i] = row['team'];
+        team[i] = row['team_number'];
     }
 
     var columns = ['Team Number'];
 
     console.log('got teams');
+    console.log(team);
     response.render('team',{
       'teams' : team,
       'title' : "Teams that hang or do auto gear",
