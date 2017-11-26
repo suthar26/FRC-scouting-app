@@ -233,7 +233,7 @@ function sendSideHang(teams, team, response) {
     console.log('got teams');
     console.log(team);
     response.render('team',{
-      'schedule' : team,
+      'teams' : team,
       'title' : "Side Hangers",
       'columns' : columns
     });
@@ -346,8 +346,8 @@ function sendHangRank(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i]['team'] = row['team_number'];
-        team[i]['hangDur'] = row['avg'];
+        team[i]['teamNumber'] = row['team_number'];
+        team[i]['hangDurr'] = row['avg'];
         team[i]['hang'] = row['count'];
     }
 
@@ -355,7 +355,7 @@ function sendHangRank(teams, team, response) {
 
     console.log('got teams');
     console.log(team);
-    response.render('team',{
+    response.render('ranking',{
       'teams' : team,
       'title' : "Ranking of hangs",
       'columns' : columns
@@ -389,7 +389,7 @@ function sendEliteBot(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i]['team'] = row['team_number'];
+        team[i]['teamNumber'] = row['team_number'];
         team[i]['gears'] = row['gears'];
         team[i]['teleHigh'] = row['high'];
     }
@@ -397,7 +397,7 @@ function sendEliteBot(teams, team, response) {
     var columns = ['Team', 'Gear Average', 'High Ball Average'];
 
     console.log('got teams');
-    response.render('team',{
+    response.render('ranking',{
       'teams' : team,
       'title' : "Elite Bots ranked",
       'columns' : columns
