@@ -50,6 +50,16 @@ app.get('/scouting/redOpponents', function(req, res){
     }
 });
 
+app.get('/scouting/blueOpponents', function(req, res){
+
+//  res.render('scouting');
+    if(req.query.teamNumber != undefined){
+        postgres.getOpponentsWhenBlue(req.query.teamNumber, res);
+    }else{
+        res.send('missing query: teamNumber');
+    }
+});
+
 app.get('/scouting', function(req, res){
 
 //  res.render('scouting');
