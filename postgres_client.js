@@ -121,13 +121,13 @@ exports.getOpponentsWhenRed = function(team, response){
           response.send(err);
           return
       }
-      if(sendOpponentsWhenRed(res, response, schedule, teamNumber)){
+      if(prepOpponentsWhenRed(res, response, schedule, teamNumber)){
           return
       }
     });
 }
 
-function sendOpponentsWhenRed(matchSchedule, response, schedule, team) {
+function prepOpponentsWhenRed(matchSchedule, response, schedule, team) {
     for (i in matchSchedule.rows){
         row = matchSchedule.rows[i];
         if(!schedule[i]){
@@ -142,18 +142,18 @@ function sendOpponentsWhenRed(matchSchedule, response, schedule, team) {
 
     var columns = ['Match', 'Blue 1', 'Blue 2', 'Blue 3'];
 
-    console.log('got schedule');
+    console.log('got red schedule');
     console.log(schedule);
-    response.render('view',{
+    var redmatches = {
       'schedule' : schedule,
-      'title' : "Opponents for Team " + team + " when Blue side",
+      'title' : "Opponents for Team " + team + " when Red side",
       'columns' : columns
-    });
-    console.log('sent schedule');
+    };
+    getOpponentsWhenBlue(team, response, redmatches);
     return true;
 }
 
-exports.getOpponentsWhenBlue = function(team, response){
+function getOpponentsWhenBlue (team, response,redmatches){
     console.log("Getting Matches for $1");
     var teamNumber = [parseInt(team)];
     var query = "SELECT M.match_number, M.r1, M.r2, M.r3 FROM \"matchSchedule\" M WHERE M.b1 = $1 OR M.b2 = $1 OR M.b3 = $1 ORDER BY M.match_number";
@@ -164,13 +164,13 @@ exports.getOpponentsWhenBlue = function(team, response){
           response.send(err);
           return
       }
-      if(sendOpponentsWhenBlue(res, response, schedule, teamNumber)){
+      if(sendOpponentsWhenBlue(res, response, schedule, teamNumber,redmatches)){
           return
       }
     });
 }
 
-function sendOpponentsWhenBlue(matchSchedule, response, schedule, team) {
+function sendOpponentsWhenBlue(matchSchedule, response, schedule, team, redmatches) {
     for (i in matchSchedule.rows){
         row = matchSchedule.rows[i];
         if(!schedule[i]){
@@ -187,10 +187,14 @@ function sendOpponentsWhenBlue(matchSchedule, response, schedule, team) {
     var columns = ['Match', 'Red 1', 'Red 2', 'Red 3'];
 
     console.log('got schedule');
-    response.render('view',{
+    var bluematches = {
       'schedule' : schedule,
-      'title' : "Opponents for team " + team + " when red",
+      'title' : "Opponents for team " + team + " when Blue side",
       'columns' : columns
+    };
+    response.render('opponents',{
+      'red' : redmatches,
+      'blue' : bluematches
     });
     console.log('sent schedule');
     return true;
@@ -227,8 +231,9 @@ function sendSideHang(teams, team, response) {
     var columns = ['Team Number'];
 
     console.log('got teams');
+    console.log(team);
     response.render('view',{
-      'teams' : team,
+      'schedule' : team,
       'title' : "Side Hangers",
       'columns' : columns
     });
