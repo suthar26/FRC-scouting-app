@@ -225,14 +225,14 @@ function sendSideHang(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i] = row['team_number'];
+        team[i] = row['team'];
     }
 
     var columns = ['Team Number'];
 
     console.log('got teams');
     console.log(team);
-    response.render('view',{
+    response.render('team',{
       'schedule' : team,
       'title' : "Side Hangers",
       'columns' : columns
@@ -266,13 +266,13 @@ function sendShoot(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i] = row['team_number'];
+        team[i] = row['team'];
     }
 
     var columns = ['Team Number'];
 
     console.log('got teams');
-    response.render('view',{
+    response.render('team',{
       'teams' : team,
       'title' : "Teams that shoot high",
       'columns' : columns
@@ -306,13 +306,13 @@ function sendHangOrAutoGear(teams, team, response) {
         if(!team[i]){
             team[i] = {}
         }
-        team[i] = row['team_number'];
+        team[i] = row['team'];
     }
 
     var columns = ['Team Number'];
 
     console.log('got teams');
-    response.render('view',{
+    response.render('team',{
       'teams' : team,
       'title' : "Teams that hang or do auto gear",
       'columns' : columns
@@ -347,14 +347,15 @@ function sendHangRank(teams, team, response) {
             team[i] = {}
         }
         team[i]['team'] = row['team_number'];
-        team[i]['hangDur'] = row['hang_duration'];
-        team[i]['hang'] = row['hang'];
+        team[i]['hangDur'] = row['avg'];
+        team[i]['hang'] = row['count'];
     }
 
     var columns = ['Team Number', 'Average Time', 'Hang Count'];
 
     console.log('got teams');
-    response.render('view',{
+    console.log(row);
+    response.render('team',{
       'teams' : team,
       'title' : "Ranking of hangs",
       'columns' : columns
@@ -389,14 +390,14 @@ function sendEliteBot(teams, team, response) {
             team[i] = {}
         }
         team[i]['team'] = row['team_number'];
-        team[i]['gears'] = row['gears_scored'];
-        team[i]['teleHigh'] = row['tele_high'];
+        team[i]['gears'] = row['gears'];
+        team[i]['teleHigh'] = row['high'];
     }
 
     var columns = ['Team', 'Gear Average', 'High Ball Average'];
 
     console.log('got teams');
-    response.render('view',{
+    response.render('team',{
       'teams' : team,
       'title' : "Elite Bots ranked",
       'columns' : columns
