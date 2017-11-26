@@ -737,7 +737,7 @@ function sendSchedule(matchSchedule, response, schedule) {
         schedule[i]['blue3'] = row['b3'];
     }
     console.log('got schedule');
-    response.render('index',{'schedule' : schedule,'title':'Match Schedule','columns': ['Match', 'Red 1','Red 2','Red 3','Blue 1','Blue 2','Blue 3']});
+    response.render('schedule',{'schedule' : schedule,'title':'Match Schedule','columns': ['Match', 'Red 1','Red 2','Red 3','Blue 1','Blue 2','Blue 3']});
     console.log('sent schedule');
     return true;
 }

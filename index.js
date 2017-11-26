@@ -74,16 +74,6 @@ app.get('/scouting/opponents', function(req, res){
     }
 });
 
-app.get('/scouting/opponents', function(req, res){
-
-//  res.render('scouting');
-    if(req.query.teamNumber != undefined){
-        postgres.getOpponentsWhenBlue(req.query.teamNumber, res);
-    }else{
-        res.send('missing query: teamNumber');
-    }
-});
-
 app.get('/scouting', function(req, res){
 
 //  res.render('scouting');
@@ -137,13 +127,6 @@ app.get('/scouting/api/getMatch', function(req, res){
 
 });
 app.get('/scouting/pitStrat', function(req, res){
-    // jwt.verify(req.query.token, scouting_secret, function(err, res){
-    //   if (err){
-    //     res.send(err);
-    //     return
-    //   }
-
-//  });
     if(req.query.matchNumber != undefined){
         postgres.getPitMatch(req.query.matchNumber, res);
         //postgres.viewTeam(188, res);
@@ -154,13 +137,6 @@ app.get('/scouting/pitStrat', function(req, res){
 });
 
 app.get('/scouting/viewTeam', function(req, res){
-    // jwt.verify(req.query.token, scouting_secret, function(err, res){
-    //   if (err){
-    //     res.send(err);
-    //     return
-    //   }
-
-//  });
     if(req.query.teamNumber != undefined){
         postgres.viewTeam(req.query.teamNumber, res);
     }
