@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title=Opponents
+        title Opponents
         link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
         link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
         script(src='/javascripts/jquery-3.0.0.min.js')
@@ -25,8 +25,8 @@ html
                         each val, field in match
                             if (field === 'matchNumber')
                                 a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/pitStrat?matchNumber=' + val)=val+''
-                            if (field != 'matchNumber')
-                                p.grid-item.f-left.center(style='background: #2196F3')=val+' '
+                            if (field != 'matchNumber') 
+                                a.no-decor.f-left.center.grid-item.blueTeams(href='/scouting/viewTeam?teamNumber=' + val)=val+''
                 .clear
 
         .clear
@@ -49,7 +49,7 @@ html
                             if (field === 'matchNumber')
                                 a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/pitStrat?matchNumber=' + val)=val+''
                             if (field != 'matchNumber')
-                                p.grid-item.f-left.center(style='background: #F44336')=val+' '
+                                a.no-decor.f-left.center.grid-item.redTeams(href='/scouting/viewTeam?teamNumber=' + val)=val+''
                 .clear
 
         .clear
@@ -57,6 +57,14 @@ html
         style(type='text/css').
             .matchNum{
                 color: black;
+            }
+            .redTeams{
+              background: #F44336;
+              color: black;
+            }
+            .blueTeams{
+              background: #2196F3;
+              color: black;
             }
             .red{
                 background: #FF5252;

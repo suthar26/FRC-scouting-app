@@ -9,20 +9,21 @@ html
     body.none.fill
         div.f-center(style='width:100%')
             h1=title
-        div.f-left(style='width:40%;')
+        div.f-left(style='width:20%;')
             p.grid-width=('')
-        div.f-left(style='width: 20%')
+        div.f-left(style='width: 60%')
             div
                 each title, i in columns
-                    if (i <= 0)
                         p.grid-width.f-left.center(style='background: #4CAF50')=title
-                    if (i > 0)
-                        p.grid-width.f-left.center(style='background: #B71C1C')=title
                     
                 .clear
-                each val in teams
+                each team, index in teams
                     .no-decor.grid-height
+                        each val, field in team
+                            if (field === 'teamNumber')
                                 a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/viewTeam?teamNumber=' + val)=val+''
+                            if (field != 'teamNumber')
+                                p.grid-item.f-left.center(style='background: #F44336')=val+' '
                 .clear
 
         .clear
@@ -40,13 +41,13 @@ html
                 color: white;
             }
             .grid-width{
-                width: 100%;
+                width: 30%;
             }
             .grid-height{
                 height: 40px;
             }
             .grid-item{
-                width: 100%;
+                width: 30%;
                 height: 40px;
             }
             a{
