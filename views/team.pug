@@ -7,7 +7,19 @@ html
         script(src='/javascripts/jquery-3.0.0.min.js')
 
     body.none.fill(style='background-image: url(../assets/pictures/circuit.png);')#body
-        div.f-center.page.mdc-card.margin-v-b.padding-b(style='width:30%')
+        div.f-center(style='width:100%')
+          .topnav
+            div.f-center.heading(style='width:100%')
+              h2 FRC Scouting App
+            div.f-left(style='width:5%;')
+              p.grid-width=('')
+            a(href='/') Home
+            a(href='/scouting/MatchSchedule') Match Schedule
+            a(href='/scouting/hangRank') Ranking
+            a(href='/scouting/opponents?teamNumber=188') Opponents of 188
+        div.spacing
+
+        div.f-center.page.mdc-card.margin-v-b.padding-b(style='width:50%')
             h1=title
         div.f-left(style='width:40%;')
             p.grid-width=('')

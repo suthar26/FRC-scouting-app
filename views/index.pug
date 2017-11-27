@@ -21,19 +21,15 @@ html
             a(href='/scouting/opponents?teamNumber=188') Opponents of 188
 
         div.spacing
-        div.f-center.page.mdc-card.margin-v-b.padding-b(style='width:90%')
-            h1=title
         div.f-left(style='width:5%;')
             p.grid-width=('')
-            //=('#' + matchNumber)
-            //each team, teamNumber in summary
-              if (team.color == '#ba3248')
-                .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
-            //each team, teamNumber in summary
-              if (team.color == '#4286f4')
-                .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
         div.f-left.page.mdc-card.margin-v-b.padding-b(style='width: 90%')
-            div
+            h3 Queries below are for Team 188, change the url for other teams
+            each index in links
+              a.no-decor.f-left.center.grid-item.mdc-card(
+                href = index.url)
+                h1.none-m.grid-item=index.name
+              p 
 
         .clear
 
@@ -57,7 +53,7 @@ html
                 height: 40px;
             }
             .grid-item{
-                width: 13%;
+                width: 100%;
                 height: 40px;
             }
             a{

@@ -24,9 +24,56 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.get('/', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
     res.render('index',{
-      'title' : 'FRC Scouting App'
+      'title' : 'FRC Scouting App',
+      'links' : links
     })
 });
+var links = [
+  {
+    'name' : 'Match Schedule',
+    'url' : '/scouting/matchSchedule'
+  },
+  {
+    'name' : 'Exciting Matchups',
+    'url' : '/scouting/elite'
+  },
+  {
+    'name' : 'Side Hanging Robots',
+    'url' : '/scouting/sideHangers'
+  },
+  {
+    'name' : 'Ball Shooter robots',
+    'url' : '/scouting/shooters'
+  },
+  {
+    'name' : 'Complimentary Robot (Hang or Auto Gear)',
+    'url' : '/scouting/hangOrAutoGear'
+  },
+  {
+    'name' : 'Hangers',
+    'url' : '/scouting/hangRank'
+  },
+  {
+    'name' : 'Outstanding Rank',
+    'url' : '/scouting/eliteRank'
+  },
+  {
+    'name' : 'Match Schedule by Team',
+    'url' : '/scouting/teamSchedule?teamNumber=188'
+  },
+  {
+    'name' : 'Opponets for Team 188',
+    'url' : '/scouting/opponents?teamNumber=188'
+  },
+  {
+    'name' : 'View Match Summary',
+    'url' : '/scouting/pitStrat?matchNumber=10'
+  },
+  {
+    'name' : 'View Team',
+    'url' : '/scouting/viewTeam?teamNumber=188'
+  },
+];
 
 app.get('/scouting/matchSchedule', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
     postgres.getSchedule(res);

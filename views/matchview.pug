@@ -7,70 +7,82 @@ html
     script(src='/javascripts/jquery-3.0.0.min.js')
 
   body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
-    //(style='background-image: url(assets/pictures/circuit.png);')#body
-    div.f-center(style='width:90%')
+    div.f-center(style='width:100%')
+      .topnav
+        div.f-center.heading(style='width:100%')
+          h2 FRC Scouting App
+        div.f-left(style='width:5%;')
+          p.grid-width=('')
+        a(href='/') Home
+        a(href='/scouting/MatchSchedule') Match Schedule
+        a(href='/scouting/hangRank') Ranking
+        a(href='/scouting/opponents?teamNumber=188') Opponents of 188
+    div.spacing
+
+    div.f-center(style='width:100%')
         h1=title
 
-    div.f-left.page.mdc-card.margin-v-b.padding-b(style='width:5%;')
-      p.grid-width=('#' + matchNumber)
-      p.grid-height.none='Click below to visit Team'
-      each team, teamNumber in summary
-        if (team.color == '#ba3248')
-          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
-      each team, teamNumber in summary
-        if (team.color == '#4286f4')
-          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
-
-    div.f-left(style='width: 90%')
-      div
-        each title, i in columns
-          if (i <= 1)
-            p.grid-width.f-left(style='background: orange')=title
-          if (i > 1 && i < 7)
-            p.grid-width.f-left(style='background: yellow')=title
-          if (i >= 7)
-            p.grid-width.f-left(style='background: green')=title
-
-        .clear
+    div.f-center.page.padding-b(style='width:90%')
+      div.f-left(style='width:10%')
+        p.grid-width=('Match #' + matchNumber)
+        p.grid-height.none='Click below to visit Team'
         each team, teamNumber in summary
           if (team.color == '#ba3248')
-            .no-decor.grid-height.padding-s
-            each val, field in team
-              if(field!='color')
-                .no-decor.f-left.center.grid-item=val+''
-        .clear
+            a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
         each team, teamNumber in summary
           if (team.color == '#4286f4')
-            .no-decor.grid-height.padding-s
+            a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
+
+      div.f-left(style='width: 80%')
+        div
+          each title, i in columns
+            if (i <= 1)
+              p.grid-width.f-left(style='background: orange')=title
+            if (i > 1 && i < 7)
+              p.grid-width.f-left(style='background: yellow')=title
+            if (i >= 7)
+              p.grid-width.f-left(style='background: green')=title
+
+          .clear
+          each team, teamNumber in summary
+            if (team.color == '#ba3248')
+              .no-decor.grid-height.padding-s
               each val, field in team
-                if (field!='color')
+                if(field!='color')
                   .no-decor.f-left.center.grid-item=val+''
-        .clear
+          .clear
+          each team, teamNumber in summary
+            if (team.color == '#4286f4')
+              .no-decor.grid-height.padding-s
+                each val, field in team
+                  if (field!='color')
+                    .no-decor.f-left.center.grid-item=val+''
+          .clear
 
-    .clear
-    div.margin-b
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
-        Prev Prev Match
+      .clear
+      div.margin-b
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
+          Prev Prev Match
 
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
-        Next Next Match
-
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
+          Next Next Match
+    
+    
     style(type='text/css').
       .grid-width{
-        width: 8%;
+        width: 9%;
       }
       .grid-height{
         height: 40px;
       }
       .grid-item{
-        width: 8%;
+        width: 9%;
         height: 40px;
       }
       a{
         background-color: #dddddd;
         border: red;
         height: 100px;
-        width: 150px;
         padding: 3px 3px;
         display: inline;
         font-size: 16px;

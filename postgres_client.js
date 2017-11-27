@@ -97,7 +97,7 @@ function sendMatchup(matchSchedule, response, schedule) {
         schedule[i]['blue3'] = row['b3'];
     }
     console.log('got schedule');
-    response.render('index',{
+    response.render('schedule',{
       'schedule' : schedule,
       'title' : 'Interesting Matches',
       'columns': ['Match', 'Red 1','Red 2','Red 3','Blue 1','Blue 2','Blue 3']
@@ -142,7 +142,7 @@ function sendMatchesForTeam(matchSchedule, response, schedule, team) {
     var columns = ['Match','Red 1', 'Red 2', 'Red 3', 'Blue 1', 'Blue 2', 'Blue 3'];
 
     console.log('got schedule');
-    response.render('index',{
+    response.render('schedule',{
       'schedule' : schedule,
       'title' : "Matches for team " + team,
       'columns' : columns
@@ -712,21 +712,25 @@ exports.viewTeam = function(teamNumber, response){
         }
     });
 
-    query = "SELECT * FROM public.\"teleData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
 
-    pool.query(query, values, function (err, res) {
-        if (err){
-            console.log(err);
-            response.send(err);
-            return
-        }
-        //console.log('got tele');
-        doneQueries[1] = true;
-        if(sendTeamData(res, response, false, doneQueries, summary, teamNumber)){
-            return
-        }
-    });
 };
+function getTeleTeamData(teamNumber,response,summary,doneQueries){
+  var values = [parseInt(teamNumber)];
+  query = "SELECT * FROM public.\"teleData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
+
+  pool.query(query, values, function (err, res) {
+      if (err){
+          console.log(err);
+          response.send(err);
+          return
+      }
+      //console.log('got tele');
+      doneQueries[1] = true;
+      if(sendTeamData(res, response, false, doneQueries, summary, teamNumber)){
+          return
+      }
+  });
+}
 
 function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber){
     for(i in teamData.rows){
@@ -751,11 +755,13 @@ function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber
         }
     }
     console.log(doneQueries[0] + ': ' + doneQueries[1]);
-    if(doneQueries[0] && doneQueries[1]){
+    if(doneQueries[1] && doneQueries[0]){
         console.log(summary);
         response.render('teamview', {'summary' : summary,'title':'Team View', 'teamNumber' : teamNumber,'columns' :['matchNumber', 'Mobility','aGear','aGearP','aBallP','aHigh','tGear','tGearP','tHigh','hangSucc','hangDur']});
         console.log('sent data for team');
         return true;
+    } else {
+      getTeleTeamData(teamNumber,response,summary,doneQueries);
     }
     return false;
 
