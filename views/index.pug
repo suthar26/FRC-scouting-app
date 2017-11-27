@@ -19,7 +19,7 @@ html
             a(href='/scouting/MatchSchedule') Match Schedule
             a(href='/scouting/hangRank') Ranking
             a(href='/scouting/opponents?teamNumber=188') Opponents of 188
-        
+
         div.spacing
         div.f-center(style='width:100%')
             h1=title
@@ -35,7 +35,6 @@ html
                 .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
         div.f-left(style='width: 90%')
             div
-                .clear
 
         .clear
 
@@ -107,11 +106,12 @@ html
                 padding:3px;
                 font-size: 16px;
             }
-            
+
             heading{
               padding: 0px;
               margin-top: 0px;
             }
+
 script(src='scripts/material-components-web.js')
         script.
             mdc.autoInit()

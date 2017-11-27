@@ -18,7 +18,7 @@ html
             a(href='/scouting/hangRank') Ranking
             a(href='/scouting/opponents?teamNumber=188') Opponents of 188
         div.spacing
-          
+
         div.f-center(style='width:100%')
             h1=title
         //(style='background-image: url(assets/pictures/circuit.png);')#body
@@ -44,7 +44,6 @@ html
                                 a.no-decor.f-left.center.grid-item.red(href='/scouting/viewTeam?teamNumber=' + val)=val+''
                             if (field === 'blue1' || field ==='blue2' || field === 'blue3')
                                 a.no-decor.f-left.center.grid-item.blue(href='/scouting/viewTeam?teamNumber=' + val)=val + ''
-
                 .clear
 
                 .clear
@@ -101,7 +100,12 @@ html
             }
             .spacing{
                 padding: 16px;
-                margin-top: 175px;
+                margin-top: 100px;
+                width:100%;
+            }
+            .spacingbottom{
+                padding: 16px;
+                margin-top:75px;
                 width:100%;
             }
             a{
