@@ -58,6 +58,7 @@ $navbar-pic-height: 250px;
 
 body{
   font-family: 'Slabo 27px', sans-serif;
+  background-image: url('..assets/pictures/circuit.png');
 }
 
 h1{
@@ -102,7 +103,36 @@ a{
   //   top: 0;
   // }
 }
-
+.spacing {
+    padding: 16px;
+    margin-top: 175px;
+    width:100%;
+}
+.topnav {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: #333;
+  text-align: center;
+  padding-top: 10px;
+  height: 50px;
+  text-decoration: none;
+  font-size: 25px;
+  width:22%;
+}
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.topnav a.active {
+  background-color: #FF5252;
+  color: black;
+}
 .navbar{
   background-color: $primary;
   padding: 0;
@@ -403,6 +433,9 @@ $robot-button-size: 30px;
 }
 .f-right{
   float: right;
+}
+.f-center{
+  text-align: center;
 }
 .top{
   top: 0;

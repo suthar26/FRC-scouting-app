@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/suthar26/FRC-scouting-app#readme",
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=8.4.0"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -30,12 +30,11 @@
     "material-components-web": "^0.25.0",
     "moment": "^2.19.2",
     "node": "^9.2.0",
-    "node-sass": "^4.7.2",
     "pg": "^7.4.0",
     "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
-    "node-sass": "^4.1.1",
+    "node-sass": "^4.7.2",
     "nodemon": "^1.11.0"
   }
 }

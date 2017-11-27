@@ -1,12 +1,10 @@
 doctype html
 html
     head
-        title Match Schedule
+        title=title
         link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
         link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
         script(src='/javascripts/jquery-3.0.0.min.js')
-
-
 
     body.none.fill(style='background-image: url(../assets/pictures/circuit.png);')#body
         div.f-center(style='width:100%')
@@ -15,21 +13,30 @@ html
               h2 FRC Scouting
             div.f-left(style='width:5%;')
               p.grid-width=('')
-            a.active(href='/') Home
+            a(href='/') Home
             a(href='/scouting/MatchSchedule') Match Schedule
-            a(href='/scouting/hangRank') Ranking
+            a.active(href='/scouting/hangRank') Ranking
             a(href='/scouting/opponents?teamNumber=188') Opponents of 188
-
+        
         div.spacing
-        div.f-left(style='width:5%;')
+        div.f-center.page.mdc-card.margin-v-b.padding-b(style='width:60%')
+            h1=title
+        div.f-left(style='width:20%;')
             p.grid-width=('')
-        div.f-left.page.mdc-card.margin-v-b.padding-b(style='width: 90%')
-            h3 Queries below are for Team 188, change the url for other teams
-            each index in links
-              a.no-decor.f-left.center.grid-item.mdc-card(
-                href = index.url)
-                h1.none-m.grid-item=index.name
-              p 
+        div.f-left.page.mdc-card.margin-v-b.padding-b(style='width: 60%')
+            div
+                each title, i in columns
+                        p.grid-width.f-left.center(style='background: #4CAF50')=title
+                    
+                .clear
+                each team, index in teams
+                    .no-decor.grid-height
+                        each val, field in team
+                            if (field === 'teamNumber')
+                                a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/viewTeam?teamNumber=' + val)=val+''
+                            if (field != 'teamNumber')
+                                p.grid-item.f-left.center(style='background: #F44336')=val+' '
+                .clear
 
         .clear
 
@@ -37,7 +44,6 @@ html
             .matchNum{
                 color: black;
             }
-            
             .red{
                 background: #FF5252;
                 color: white;
@@ -47,13 +53,13 @@ html
                 color: white;
             }
             .grid-width{
-                width: 13%;
+                width: 32%;
             }
             .grid-height{
                 height: 40px;
             }
             .grid-item{
-                width: 100%;
+                width: 32%;
                 height: 40px;
             }
             a{
@@ -70,11 +76,6 @@ html
                 width:150px;
                 padding:3px;
                 font-size: 16px;
-            }
-
-            heading{
-              padding: 0px;
-              margin-top: 0px;
             }
 
 script(src='scripts/material-components-web.js')

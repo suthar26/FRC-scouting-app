@@ -11144,7 +11144,8 @@ a.mdc-list-item {
   --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5); }
 
 body {
-  font-family: 'Slabo 27px', sans-serif; }
+  font-family: 'Slabo 27px', sans-serif;
+  background-image: url("..assets/pictures/circuit.png"); }
 
 h1 {
   font-family: 'Voces', sans-serif; }
@@ -11177,6 +11178,36 @@ a {
   top: 0;
   left: 0;
   right: 0; }
+
+.spacing {
+  padding: 16px;
+  margin-top: 175px;
+  width: 100%; }
+
+.topnav {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%; }
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #333;
+  text-align: center;
+  padding-top: 10px;
+  height: 50px;
+  text-decoration: none;
+  font-size: 25px;
+  width: 22%; }
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black; }
+
+.topnav a.active {
+  background-color: #FF5252;
+  color: black; }
 
 .navbar {
   background-color: #B71C1C;
@@ -11425,6 +11456,9 @@ a {
 
 .f-right {
   float: right; }
+
+.f-center {
+  text-align: center; }
 
 .top {
   top: 0; }

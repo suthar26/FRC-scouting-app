@@ -23,7 +23,104 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    res.render('index',{
+      'title' : 'FRC Scouting App',
+      'links' : links
+    })
+});
+var links = [
+  {
+    'name' : 'Match Schedule',
+    'url' : '/scouting/matchSchedule'
+  },
+  {
+    'name' : 'Exciting Matchups',
+    'url' : '/scouting/elite'
+  },
+  {
+    'name' : 'Side Hanging Robots',
+    'url' : '/scouting/sideHangers'
+  },
+  {
+    'name' : 'Ball Shooter robots',
+    'url' : '/scouting/shooters'
+  },
+  {
+    'name' : 'Complimentary Robot (Hang or Auto Gear)',
+    'url' : '/scouting/hangOrAutoGear'
+  },
+  {
+    'name' : 'Hangers',
+    'url' : '/scouting/hangRank'
+  },
+  {
+    'name' : 'Outstanding Rank',
+    'url' : '/scouting/eliteRank'
+  },
+  {
+    'name' : 'Match Schedule by Team',
+    'url' : '/scouting/teamSchedule?teamNumber=188'
+  },
+  {
+    'name' : 'Opponets for Team 188',
+    'url' : '/scouting/opponents?teamNumber=188'
+  },
+  {
+    'name' : 'View Match Summary',
+    'url' : '/scouting/pitStrat?matchNumber=10'
+  },
+  {
+    'name' : 'View Team',
+    'url' : '/scouting/viewTeam?teamNumber=188'
+  },
+];
+
+app.get('/scouting/matchSchedule', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
     postgres.getSchedule(res);
+});
+
+app.get('/scouting/elite', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getEliteMatchup(res);
+});
+
+app.get('/scouting/sideHangers', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getSideHang(res);
+});
+
+app.get('/scouting/shooters', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getShoot(res);
+});
+
+app.get('/scouting/hangOrAutoGear', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getHangOrAutoGear(res);
+});
+
+app.get('/scouting/hangRank', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getHangRank(res);
+});
+
+app.get('/scouting/eliteRank', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
+    postgres.getEliteBot(res);
+});
+
+app.get('/scouting/teamSchedule', function(req, res){
+
+//  res.render('scouting');
+    if(req.query.teamNumber != undefined){
+        postgres.getMatchesForTeam(req.query.teamNumber, res);
+    }else{
+        res.send('missing query: teamNumber');
+    }
+});
+
+app.get('/scouting/opponents', function(req, res){
+
+//  res.render('scouting');
+    if(req.query.teamNumber != undefined){
+        postgres.getOpponentsWhenRed(req.query.teamNumber, res);
+    }else{
+        res.send('missing query: teamNumber');
+    }
 });
 
 app.get('/scouting', function(req, res){
@@ -79,13 +176,6 @@ app.get('/scouting/api/getMatch', function(req, res){
 
 });
 app.get('/scouting/pitStrat', function(req, res){
-    // jwt.verify(req.query.token, scouting_secret, function(err, res){
-    //   if (err){
-    //     res.send(err);
-    //     return
-    //   }
-
-//  });
     if(req.query.matchNumber != undefined){
         postgres.getPitMatch(req.query.matchNumber, res);
         //postgres.viewTeam(188, res);
@@ -96,13 +186,6 @@ app.get('/scouting/pitStrat', function(req, res){
 });
 
 app.get('/scouting/viewTeam', function(req, res){
-    // jwt.verify(req.query.token, scouting_secret, function(err, res){
-    //   if (err){
-    //     res.send(err);
-    //     return
-    //   }
-
-//  });
     if(req.query.teamNumber != undefined){
         postgres.viewTeam(req.query.teamNumber, res);
     }

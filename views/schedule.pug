@@ -1,0 +1,104 @@
+doctype html
+html
+    head
+        title=title
+        link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+        link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+        script(src='/javascripts/jquery-3.0.0.min.js')
+
+    body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
+        div.f-center(style='width:100%')
+          .topnav
+            div.f-center.heading(style='width:100%')
+              h2 FRC Scouting
+            div.f-left(style='width:5%;')
+              p.grid-width=('')
+            a(href='/') Home
+            a.active(href='/scouting/MatchSchedule') Match Schedule
+            a(href='/scouting/hangRank') Ranking
+            a(href='/scouting/opponents?teamNumber=188') Opponents of 188
+        div.spacing
+        
+        div.f-center.page.mdc-card.margin-v-b.padding-b(style='width:90%')
+
+            h1=title
+        //(style='background-image: url(assets/pictures/circuit.png);')#body
+        div.f-left(style='width:5%;')
+            p.grid-width=('')
+        div.f-left.page.mdc-card.margin-v-b.padding-b(style='width: 90%')
+            div
+                each title, i in columns
+                    if (i <= 0)
+                        p.grid-width.f-left.center(style='background: #ddd')=title
+                    if (i > 0 && i < 4)
+                        p.grid-width.f-left.center(style='background: #FF5252')=title
+                    if (i >= 4)
+                        p.grid-width.f-left.center(style='background: #448AFF')=title
+
+                .clear
+                each match, index in schedule
+                    .no-decor.grid-height
+                        each val, field in match
+                            if (field === 'matchNumber')
+                                a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/pitStrat?matchNumber=' + val)=val+''
+                            if (field ==='red1' || field ==='red2' || field === 'red3')
+                                a.no-decor.f-left.center.grid-item.red(href='/scouting/viewTeam?teamNumber=' + val)=val+''
+                            if (field === 'blue1' || field ==='blue2' || field === 'blue3')
+                                a.no-decor.f-left.center.grid-item.blue(href='/scouting/viewTeam?teamNumber=' + val)=val + ''
+                .clear
+
+                .clear
+
+        .clear
+
+        style(type='text/css').
+            .matchNum{
+                color: black;
+            }
+            .red{
+                background: #FF5252;
+                color: black;
+            }
+            .blue{
+                background: #448aff;
+                color: black;
+            }
+            .grid-width{
+                width: 13.5%;
+            }
+            .grid-height{
+                height: 40px;
+            }
+            .grid-item{
+                width: 13.5%;
+                height: 40px;
+            }
+            .spacing{
+                padding: 16px;
+                margin-top: 100px;
+                width:100%;
+            }
+            .spacingbottom{
+                padding: 16px;
+                margin-top:75px;
+                width:100%;
+            }
+            a{
+                background-color: #dddddd;
+                border: black;
+                height: 100px;
+                width: 150px;
+                padding: 3px;
+                display: inline;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            p {
+                width:150px;
+                padding:3px;
+                font-size: 16px;
+            }
+
+script(src='scripts/material-components-web.js')
+        script.
+            mdc.autoInit()

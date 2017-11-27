@@ -1,35 +1,45 @@
 doctype html
 html
     head
-        title Match Schedule
+        title=title
         link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
         link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
         script(src='/javascripts/jquery-3.0.0.min.js')
-
-
 
     body.none.fill(style='background-image: url(../assets/pictures/circuit.png);')#body
         div.f-center(style='width:100%')
           .topnav
             div.f-center.heading(style='width:100%')
-              h2 FRC Scouting
+              h2 FRC Scouting App
             div.f-left(style='width:5%;')
               p.grid-width=('')
-            a.active(href='/') Home
+            a(href='/') Home
             a(href='/scouting/MatchSchedule') Match Schedule
             a(href='/scouting/hangRank') Ranking
             a(href='/scouting/opponents?teamNumber=188') Opponents of 188
-
         div.spacing
+
+        div.f-center.page.mdc-card.margin-v-b.padding-b(style='width:90%')
+            h1=title
         div.f-left(style='width:5%;')
             p.grid-width=('')
         div.f-left.page.mdc-card.margin-v-b.padding-b(style='width: 90%')
-            h3 Queries below are for Team 188, change the url for other teams
-            each index in links
-              a.no-decor.f-left.center.grid-item.mdc-card(
-                href = index.url)
-                h1.none-m.grid-item=index.name
-              p 
+            div
+                each title, i in columns
+                    if (i <= 0)
+                        p.grid-width.f-left.center(style='background: #ddd')=title
+                    if (i > 0)
+                        p.grid-width.f-left.center(style='background: #B71C1C')=title
+                    
+                .clear
+                each match, index in schedule
+                    .no-decor.grid-height
+                        each val, field in match
+                            if (field === 'matchNumber')
+                                a.no-decor.f-left.center.grid-item.matchNum(href='/scouting/pitStrat?matchNumber=' + val)=val+''
+                            if (field != 'matchNumber')
+                                p.grid-item.f-left.center(style='background: #F44336')=val+' '
+                .clear
 
         .clear
 
@@ -37,7 +47,6 @@ html
             .matchNum{
                 color: black;
             }
-            
             .red{
                 background: #FF5252;
                 color: white;
@@ -47,13 +56,13 @@ html
                 color: white;
             }
             .grid-width{
-                width: 13%;
+                width: 22%;
             }
             .grid-height{
                 height: 40px;
             }
             .grid-item{
-                width: 100%;
+                width: 22%;
                 height: 40px;
             }
             a{
@@ -70,11 +79,6 @@ html
                 width:150px;
                 padding:3px;
                 font-size: 16px;
-            }
-
-            heading{
-              padding: 0px;
-              margin-top: 0px;
             }
 
 script(src='scripts/material-components-web.js')
