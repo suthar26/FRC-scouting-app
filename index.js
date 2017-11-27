@@ -62,7 +62,7 @@ var links = [
     'url' : '/scouting/teamSchedule?teamNumber=188'
   },
   {
-    'name' : 'Opponets for Team 188',
+    'name' : 'Opponents for Team 188',
     'url' : '/scouting/opponents?teamNumber=188'
   },
   {
