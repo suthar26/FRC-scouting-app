@@ -58,7 +58,7 @@ function sendTeams(teams, team, response) {
     console.log('got teams');
     console.log(team);
     response.send({
-      'schedule' : team,
+      'team' : team,
       'title' : "Teams",
       'columns' : columns
     });

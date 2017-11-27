@@ -8,7 +8,7 @@ html
 
 
 
-    body.none.fill
+    body.none.fill(style='background-image: url(../assets/pictures/circuit.png);')#body
         div.f-center(style='width:100%')
           .topnav
             div.f-center.heading(style='width:100%')
@@ -21,9 +21,8 @@ html
             a(href='/scouting/opponents?teamNumber=188') Opponents of 188
         
         div.spacing
-        div.f-center(style='width:100%')
+        div.f-center.page.mdc-card.margin-v-b.padding-b(style='width:90%')
             h1=title
-        //(style='background-image: url(assets/pictures/circuit.png);')#body
         div.f-left(style='width:5%;')
             p.grid-width=('')
             //=('#' + matchNumber)
@@ -33,7 +32,7 @@ html
             //each team, teamNumber in summary
               if (team.color == '#4286f4')
                 .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
-        div.f-left(style='width: 90%')
+        div.f-left.page.mdc-card.margin-v-b.padding-b(style='width: 90%')
             div
                 .clear
 
@@ -43,37 +42,7 @@ html
             .matchNum{
                 color: black;
             }
-            .spacing {
-                padding: 16px;
-                margin-top: 175px;
-                width:100%;
-            }
-            .topnav {
-              overflow: hidden;
-              background-color: #FFF;
-              position: fixed;
-              top: 0;
-              width: 100%;
-            }
-            .topnav a {
-              float: left;
-              display: block;
-              color: #333;
-              text-align: center;
-              padding-top: 10px;
-              height: 50px;
-              text-decoration: none;
-              font-size: 25px;
-              width:22%;
-            }
-            .topnav a:hover {
-              background-color: #ddd;
-              color: black;
-            }
-            .topnav a.active {
-              background-color: #FF5252;
-              color: black;
-            }
+            
             .red{
                 background: #FF5252;
                 color: white;

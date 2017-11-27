@@ -6,12 +6,12 @@ html
         link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
         script(src='/javascripts/jquery-3.0.0.min.js')
 
-    body.none.fill
-        div.f-center(style='width:100%')
+    body.none.fill(style='background-image: url(../assets/pictures/circuit.png);')#body
+        div.f-center.page.mdc-card.margin-v-b.padding-b(style='width:30%')
             h1=title
         div.f-left(style='width:40%;')
             p.grid-width=('')
-        div.f-left(style='width: 20%')
+        div.f-left.page.mdc-card.margin-v-b.padding-b(style='width: 20%')
             div
                 each title, i in columns
                     if (i <= 0)
