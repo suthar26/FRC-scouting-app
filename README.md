@@ -5,7 +5,7 @@ Scouting app for FIRST Robotics Competition (FRC) to collect data on robots comp
 Live versions of the branches in this repository can be found at the following links:
 
 - [Staging](https://suthar-project-staging.herokuapp.com/)
-- [Master](https://suthar-project.herokuapp.com/)
+- [Master](https://vanguard-frc.herokuapp.com/)
 
 # Installation
 ### Required:
@@ -23,9 +23,12 @@ $ cd FRC-scouting-app
 
 ```sh
 $ npm install -d
+```
+if running on linux 
+```sh
 $ npm start 
 ```
-or if npm start does not work 
+if running on windows npm start does not work as node-sass is not supported, run the following on windows 
 
 ```sh
 $ node index
