@@ -4,6 +4,7 @@ var app = express();
 var path = require('path');
 var moment = require('moment');
 var postgres = require('./postgres_client.js');
+var api = require('./api.js');
 var jwt = require('jsonwebtoken');
 
 
@@ -24,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.get('/', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
     res.render('index',{
-      'title' : 'FRC Scouting App',
+      'title' : 'Vanguard - FRC Scouting APP',
       'links' : links
     })
 });
@@ -73,6 +74,14 @@ var links = [
     'name' : 'View Team',
     'url' : '/scouting/viewTeam?teamNumber=188'
   },
+  {
+    'name' : 'API call get team data',
+    'url' : '/scouting/api/getTeam?teamNumber=188'
+  },
+  {
+    'name' : 'API call get match Summary',
+    'url' : '/scouting/api/matchSummary?matchNumber=10'
+  },
 ];
 
 app.get('/scouting/matchSchedule', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
@@ -104,8 +113,6 @@ app.get('/scouting/eliteRank', function(req, res) {//this block defines what our
 });
 
 app.get('/scouting/teamSchedule', function(req, res){
-
-//  res.render('scouting');
     if(req.query.teamNumber != undefined){
         postgres.getMatchesForTeam(req.query.teamNumber, res);
     }else{
@@ -123,62 +130,10 @@ app.get('/scouting/opponents', function(req, res){
     }
 });
 
-app.get('/scouting', function(req, res){
 
-//  res.render('scouting');
-    if(req.query.matchNumber != undefined && req.query.station != undefined){
-        postgres.getMatch(req.query.matchNumber, req.query.station, res);
-    }else{
-        res.send('missing query: matchNumber');
-    }
-});
-var scouting_secret = "SutharIsMY5orite";
-
-app.post('/scouting/api/signIn', function(req, res){
-    jwt.sign(req.body, scouting_secret, {'expiresIn': '12h'}, function(err, token) {
-        if (err){
-            console.log(err);
-            res.json({'err' : err})
-        }
-        res.json({'token' : token});
-    });
-});
-
-app.post('/scouting/api/sendData', function(req, response){
-    //console.log(req.query.token);
-    //jwt.verify(req.query.token, scouting_secret, function(err, res){
-    // if (err){
-    //   console.log(err);
-    //   res.send(err);
-    //   return
-    // }
-    if (req.body.auto){
-        postgres.submitAuto(req.body.auto);
-    }
-    if (req.body.tele){
-        postgres.submitTele(req.body.tele);
-    }
-    if (req.body.form){
-        postgres.submitForm(req.body.form);
-    }
-    response.send('success');
-    //});
-});
-
-app.get('/scouting/api/getMatch', function(req, res){
-    // jwt.verify(req.query.token, scouting_secret, function(err, res){
-    //   if (err){
-    //     res.send(err);
-    //     return
-    //   }
-
-//  });
-
-});
 app.get('/scouting/pitStrat', function(req, res){
     if(req.query.matchNumber != undefined){
         postgres.getPitMatch(req.query.matchNumber, res);
-        //postgres.viewTeam(188, res);
     }
     else{
         res.send('missing query: matchNumber');
@@ -194,23 +149,19 @@ app.get('/scouting/viewTeam', function(req, res){
     }
 });
 
-
-app.get('/scouting/api/query', function(req, res){
-    if(req.query.q){
-        postgres.query(req.query.q, res);
+app.get('/scouting/api/getTeam', function(req, res){
+    if(req.query.teamNumber != undefined){
+        api.getTeam(req.query.teamNumber, res);
     }
     else{
-        res.render('query', {'names' : [], 'rows' : [], 'query' : ''});
+        res.send('missing query: matchNumber');
     }
 });
-
-app.post('/scouting/api/insertMatch', function(req, res){
-    match = req.body;
-    if(match != undefined){
-        postgres.insertMatch(match);
-        res.send('worked');
+app.get('/scouting/api/matchSummary', function(req, res){
+    if(req.query.matchNumber != undefined){
+        api.getMatchSummary(req.query.matchNumber, res);
     }
     else{
-        res.send('not worked');
+        res.send('missing query: matchNumber');
     }
 });
